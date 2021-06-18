@@ -1,0 +1,33 @@
+{
+    "name": "melvinachterhuis/properties-productbox-shopware6-plugin",
+    "description": "Properties in the product box",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Melvin Achterhuis"
+        }
+    ],
+    "require": {
+        "shopware/core": "6.4.*",
+        "shopware/storefront": "6.4.*",
+        "shopware/administration": "6.4.*"
+    },
+    "type": "shopware-platform-plugin",
+    "autoload": {
+        "psr-4": {
+            "Melv\\PropertiesProductbox\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Melv\\PropertiesProductbox\\MelvPropertiesProductbox",
+        "label": {
+            "de-DE": "Properties Productbox",
+            "en-GB": "Properties Productbox"
+        },
+        "description": {
+            "de-DE": "Show properties in the productbox",
+            "en-GB": "Show properties in the productbox"
+        }
+    }
+}

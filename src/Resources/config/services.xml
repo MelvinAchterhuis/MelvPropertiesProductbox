@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Melv\PropertiesProductbox\Storefront\Subscriber\ProductListing">
+            <argument type="service" id="product.repository"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <service id="Melv\PropertiesProductbox\Storefront\Resolver\SliderResolver">
+            <tag name="shopware.cms.data_resolver"/>
+            <argument type="service" id="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver"/>
+        </service>
+        <service id="Melv\PropertiesProductbox\Storefront\Resolver\BoxResolver">
+            <tag name="shopware.cms.data_resolver"/>
+            <argument type="service" id="Shopware\Core\Content\Product\Cms\ProductBoxCmsElementResolver"/>
+        </service>
+    </services>
+</container>

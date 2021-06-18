@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+{% block component_product_box_variant_characteristics %}
+    {{ parent() }}
+    {% block component_product_box_properties  %}
+        {% if product.sortedProperties|length > 0 %}
+            {{ block("component_product_properties_table", "@Storefront/storefront/component/product/properties.html.twig") }}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
