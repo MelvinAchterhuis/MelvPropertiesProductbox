@@ -1,8 +1,8 @@
 ## A plugin for [Shopware 6](https://github.com/shopware/platform)
 
-Show the newsletter subscribe form inside the footer
+Show properties inside the product box.
 
-![](https://i.imgur.com/OR8aM6K.png)
+![](https://i.imgur.com/aE6IKyV.png)
 
 ## Requirements
 

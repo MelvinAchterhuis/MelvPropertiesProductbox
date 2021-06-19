@@ -9,15 +9,21 @@ use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Content\Product\Cms\ProductBoxCmsElementResolver;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class BoxResolver
 {
-    /** @var ProductBoxCmsElementResolver $elementResolver */
-    private $elementResolver;
+    /**
+     * @param ProductBoxCmsElementResolver $elementResolver
+     * @param SystemConfigService $systemConfigService
+     */
 
-    public function __construct(ProductBoxCmsElementResolver $elementResolver)
-    {
+    public function __construct(
+        ProductBoxCmsElementResolver $elementResolver,
+        SystemConfigService $systemConfigService
+    ){
         $this->elementResolver = $elementResolver;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function getType(): string
@@ -27,7 +33,9 @@ class BoxResolver
 
     public function collect(CmsSlotEntity $slot, ResolverContext $resolverContext): ?CriteriaCollection
     {
-        $criteriaCollection = new CriteriaCollection();
+        $salesChannelId =  $resolverContext->getSalesChannelContext()->getSalesChannelId();
+        $active = $this->systemConfigService->get('MelvPropertiesProductbox.config.showBox', $salesChannelId);
+
         $config = $slot->getFieldConfig();
         $productConfig = $config->get('product');
 
@@ -38,8 +46,9 @@ class BoxResolver
         $criteria = new Criteria([$productConfig->getValue()]);
 
         $criteriaCollection = new CriteriaCollection();
-        $criteria->addAssociation('properties');
-        $criteria->addAssociation('properties.group');
+        if($active) {
+            $criteria->addAssociation('properties.group');
+        }
         $criteriaCollection->add('product_' . $slot->getUniqueIdentifier(), ProductDefinition::class, $criteria);
 
         return $criteriaCollection->all() ? $criteriaCollection : null;
