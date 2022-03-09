@@ -5,16 +5,24 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <!-- Subscribers !-->
         <service id="Melv\PropertiesProductbox\Storefront\Subscriber\ProductListing">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="product.repository"/>
             <tag name="kernel.event_subscriber"/>
         </service>
+
+        <service id="Melv\PropertiesProductbox\Storefront\Subscriber\SearchSuggest">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Resolvers !-->
         <service id="Melv\PropertiesProductbox\Storefront\Resolver\SliderResolver">
             <tag name="shopware.cms.data_resolver"/>
             <argument type="service" id="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
+
         <service id="Melv\PropertiesProductbox\Storefront\Resolver\BoxResolver">
             <tag name="shopware.cms.data_resolver"/>
             <argument type="service" id="Shopware\Core\Content\Product\Cms\ProductBoxCmsElementResolver"/>

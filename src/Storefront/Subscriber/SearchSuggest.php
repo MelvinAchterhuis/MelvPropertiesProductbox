@@ -2,12 +2,11 @@
 
 namespace Melv\PropertiesProductbox\Storefront\Subscriber;
 
-use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
-use Shopware\Core\Content\Product\Events\ProductSearchCriteriaEvent;
+use Shopware\Core\Content\Product\Events\ProductSuggestCriteriaEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ProductListing implements EventSubscriberInterface
+class SearchSuggest implements EventSubscriberInterface
 {
     public function __construct
     (
@@ -19,15 +18,14 @@ class ProductListing implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ProductListingCriteriaEvent::class => 'handleRequest',
-            ProductSearchCriteriaEvent::class => 'handleRequest'
+            ProductSuggestCriteriaEvent::class => 'handleRequest'
         ];
     }
 
-    public function handleRequest(ProductListingCriteriaEvent $event): void
+    public function handleRequest(ProductSuggestCriteriaEvent $event): void
     {
         $salesChannelId =  $event->getSalesChannelContext()->getSalesChannel()->getId();
-        $active = $this->systemConfigService->get('MelvPropertiesProductbox.config.showListing', $salesChannelId);
+        $active = $this->systemConfigService->get('MelvPropertiesProductbox.config.showSuggest', $salesChannelId);
 
         if(!$active) {
             return;

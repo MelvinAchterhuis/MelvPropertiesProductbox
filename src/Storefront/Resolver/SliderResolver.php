@@ -6,20 +6,16 @@ use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
-use Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 
 class SliderResolver
 {
-    /**
-     * @param ProductSliderCmsElementResolver $elementResolver
-     * @param SystemConfigService $systemConfigService
-     */
-
-    public function __construct(
-        ProductSliderCmsElementResolver $elementResolver,
+    public function __construct
+    (
+        CmsElementResolverInterface $elementResolver,
         SystemConfigService $systemConfigService
     ){
         $this->elementResolver = $elementResolver;
@@ -37,20 +33,21 @@ class SliderResolver
         $salesChannelId =  $resolverContext->getSalesChannelContext()->getSalesChannelId();
         $active = $this->systemConfigService->get('MelvPropertiesProductbox.config.showSlider', $salesChannelId);
 
-        $criteriaCollection = new CriteriaCollection();
+        if(!$active) {
+            return null;
+        }
 
         $config = $slot->getFieldConfig();
         $products = $config->get('products');
 
-        if (!$products || $products->isMapped() || $products->getValue() === null ) {
+        if(!$products || $products->isMapped() || $products->getValue() === null) {
             return null;
         }
 
-        if ($products->isStatic() && $products->getValue()) {
+        if($products->isStatic() && $products->getValue()) {
+            $criteriaCollection = new CriteriaCollection();
             $criteria = new Criteria($products->getValue());
-            if ($active) {
-                $criteria->addAssociation('properties.group');
-            }
+            $criteria->addAssociation('properties.group');
             $criteriaCollection->add('product-slider' . '_' . $slot->getUniqueIdentifier(), ProductDefinition::class, $criteria);
         }
         return $criteriaCollection->all() ? $criteriaCollection : null;

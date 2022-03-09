@@ -1,0 +1,13 @@
+.search-suggest-product-properties {
+  @extend .search-suggest-product-link;
+}
+
+.search-suggest-product-properties-placeholder {
+  @extend .search-suggest-product-image-container;
+}
+
+@include media-breakpoint-up(sm) {
+  .header-search-col .search-suggest-product-properties .collapse:not(.show) {
+    display: none;
+  }
+}

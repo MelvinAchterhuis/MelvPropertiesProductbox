@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/layout/header/search-suggest.html.twig' %}
+
+{% block layout_search_suggest_result_link %}
+    {{ parent() }}
+    {% block layout_search_suggest_result_properties %}
+        {% if product.sortedProperties|length > 1 %}
+            <div class="search-suggest-product-properties">
+                <div class="row align-items-center no-gutters">
+                    <div class="col-auto search-suggest-product-properties-placeholder">
+                        {# Placeholder #}
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-link px-0"
+                           data-toggle="collapse"
+                           href="#collapseSearchSuggestProperties-{{ product.id }}"
+                           role="button" aria-expanded="false"
+                           aria-controls="collapseSearchSuggestProperties-{{ product.id }}">
+                            {{ 'MelvPropertiesProductbox.propertiesLabel'|trans|sw_sanitize }}
+                        </a>
+                        <div class="collapse" id="collapseSearchSuggestProperties-{{ product.id }}">
+                            <div class="card card-body">
+                                {{ block("component_product_properties_table", "@Storefront/storefront/component/product/properties.html.twig") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

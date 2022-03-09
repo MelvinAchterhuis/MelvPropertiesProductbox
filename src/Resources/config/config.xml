@@ -5,7 +5,7 @@
         <title>Configuration</title>
         <input-field type="bool">
             <name>showListing</name>
-            <label>Show properties in listing</label>
+            <label>Show properties in listing and search</label>
         </input-field>
 
         <input-field type="bool">
@@ -17,6 +17,10 @@
             <name>showBox</name>
             <label>Show properties in box element</label>
         </input-field>
-    </card>
 
+        <input-field type="bool">
+            <name>showSuggest</name>
+            <label>Show properties in search suggest</label>
+        </input-field>
+    </card>
 </config>
