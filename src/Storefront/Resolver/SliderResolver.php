@@ -6,10 +6,10 @@ use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
-use Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 
 class SliderResolver
 {
@@ -19,7 +19,7 @@ class SliderResolver
      */
 
     public function __construct(
-        ProductSliderCmsElementResolver $elementResolver,
+        CmsElementResolverInterface $elementResolver,
         SystemConfigService $systemConfigService
     ){
         $this->elementResolver = $elementResolver;
