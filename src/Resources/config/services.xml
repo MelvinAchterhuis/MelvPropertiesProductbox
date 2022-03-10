@@ -16,6 +16,11 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="Melv\PropertiesProductbox\Storefront\Subscriber\WishList">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <!-- Resolvers !-->
         <service id="Melv\PropertiesProductbox\Storefront\Resolver\SliderResolver">
             <tag name="shopware.cms.data_resolver"/>
