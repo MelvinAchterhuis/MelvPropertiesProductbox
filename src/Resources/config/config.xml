@@ -22,5 +22,10 @@
             <name>showSuggest</name>
             <label>Show properties in search suggest</label>
         </input-field>
+
+        <input-field type="bool">
+            <name>showWishList</name>
+            <label>Show properties in wishlist</label>
+        </input-field>
     </card>
 </config>
